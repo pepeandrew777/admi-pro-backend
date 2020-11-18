@@ -83,10 +83,28 @@ const googleSignIn = async (req,res=response) => {
         res.status(401).json({
             ok:false,
             msg:'Token no es correcto'           
-        });            
-    }  
+        });            https://www.youtube.com/watch?v=XRWFvGejPT8
+        ok:true,
+        uid   
+    }
 }
+
+const renewToken = async (req,res=response) => {
+
+    const uid = req.uid;
+
+    //Generar el TOKEN-JWT
+    const token = await generarJWT(uid);
+
+    res.json({
+        ok:true,
+        token
+    });
+     
+}
+
 module.exports = {
     login,
-    googleSignIn 
+    googleSignIn,
+    renewToken 
 }
