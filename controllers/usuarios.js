@@ -94,7 +94,15 @@ const actualizarUsuario = async (req,res=response)=>{
         }
      }
         //TODO: Validar token y comprobar si es el usuario correcto
-       campos.email = email;
+        if(!usuarioDB.google){
+            campos.email = email;
+        } else if(usuarioDB.email !== email){
+            return res.status(400).json({
+             ok:false,
+             msg:'Usuario de google no pueden cambiar su correo'  
+            });        
+        }
+       
      // delete campos.password;
      // delete campos.google;
       const usuarioActualizado = await Usuario.findOneAndUpdate(uid,campos,{new:true});
